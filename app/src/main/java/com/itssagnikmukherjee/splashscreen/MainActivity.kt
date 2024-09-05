@@ -1,5 +1,6 @@
 package com.itssagnikmukherjee.splashscreen
 
+import IndividualRegScreen
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -14,7 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import com.itssagnikmukherjee.splashscreen.screens.ContractorRegistration
 import com.itssagnikmukherjee.splashscreen.screens.CouncillorRegistration
 import com.itssagnikmukherjee.splashscreen.screens.CouncillorScreen
-import com.itssagnikmukherjee.splashscreen.screens.IndividualReg
+import com.itssagnikmukherjee.splashscreen.screens.DepartmentalHeadScreen
 import com.itssagnikmukherjee.splashscreen.screens.LoginOrReg
 import com.itssagnikmukherjee.splashscreen.screens.LoginScreen
 import com.itssagnikmukherjee.splashscreen.screens.OnboardingScreen
@@ -39,10 +40,11 @@ class MainActivity : ComponentActivity() {
                         composable("loginreg"){ LoginOrReg(navController) }
                         composable("registrationscreen"){ RegistrationScreen(navController) }
                         composable("loginscreen"){ LoginScreen(navController) }
-                        composable("individual"){ IndividualReg() }
+                        composable("individual"){ IndividualRegScreen() }
                         composable("contractorreg"){ContractorRegistration()}
                         composable("councillorreg"){ CouncillorRegistration()}
                         composable("councillorscreen"){ CouncillorScreen() }
+                        composable("officerscreen"){ DepartmentalHeadScreen() }
                     }
                 }
             }

@@ -35,52 +35,52 @@ fun ContractorScreen() {
             verticalArrangement = Arrangement.Center
         ) {
             Text(text = "Complaints")
-            LazyColumn {
-                items(complaintList()) { complaint ->
-                    ComplaintCard(complaint)
-                }
-            }
-            Text(text = "Locality Works")
-            LazyColumn {
-                items(LocalityWorkList()){work->
-                    LocalityWorkCard(work)
-                }
-            }
+//            LazyColumn {
+//                items(complaintList()) { complaint ->
+//                    ComplaintCard(complaint)
+//                }
+//            }
+//            Text(text = "Locality Works")
+//            LazyColumn {
+//                items(LocalityWorkList()){work->
+//                    LocalityWorkCard(work)
+//                }
+//            }
         }
     }
 }
 
 
-@Composable
-fun BidsCard(work: LocalityWork) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(100.dp)
-            .padding(10.dp)
-    ){
-        Row (
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ){
-            Text(text = work.locality)
-            Text(text = work.pincode)
-            Text(text = work.work)
-            Text(text = work.date)
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(imageVector = Icons.Default.Info, contentDescription = "")
-            }
-        }
-    }
-}
-
-fun BidList(): List<LocalityWork> {
-    return listOf(
-        LocalityWork("Asansol","713303","Road","12-12-2023"),
-        LocalityWork("Burnpur","713305","Water","12-12-2023"),
-    )
-}
+//@Composable
+//fun BidsCard(work: LocalityWork) {
+//    Card(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .height(100.dp)
+//            .padding(10.dp)
+//    ){
+//        Row (
+//            modifier = Modifier.fillMaxSize(),
+//            verticalAlignment = Alignment.CenterVertically,
+//            horizontalArrangement = Arrangement.SpaceBetween
+//        ){
+//            Text(text = work.locality)
+//            Text(text = work.pincode)
+//            Text(text = work.work)
+//            Text(text = work.date)
+//            IconButton(onClick = { /*TODO*/ }) {
+//                Icon(imageVector = Icons.Default.Info, contentDescription = "")
+//            }
+//        }
+//    }
+//}
+//
+//fun BidList(): List<LocalityWork> {
+//    return listOf(
+//        LocalityWork("Asansol","713303","Road","12-12-2023"),
+//        LocalityWork("Burnpur","713305","Water","12-12-2023"),
+//    )
+//}
 
 data class Bid(
     val id: String,

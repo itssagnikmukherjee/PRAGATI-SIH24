@@ -1,5 +1,6 @@
 package com.itssagnikmukherjee.splashscreen.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,124 +11,97 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.itssagnikmukherjee.splashscreen.backend.Complaint
+import com.itssagnikmukherjee.splashscreen.backend.ComplaintViewModel
 
 @Composable
-fun CouncillorScreen() {
+fun CouncillorScreen(viewModel: ComplaintViewModel = viewModel()) {
+    LaunchedEffect(Unit) {
+        viewModel.fetchComplaints()
+    }
+
+    val complaints by viewModel.complaints.collectAsState()
+    Log.d("CouncillorScreen", "Complaints received: $complaints")
+
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier
                 .padding(paddingValues)
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text(text = "Complaints")
+            Text(
+                text = "Complaints",
+                style = MaterialTheme.typography.h5,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
             LazyColumn {
-                items(complaintList()) { complaint ->
-                    ComplaintCard(complaint)
-                }
-            }
-            Text(text = "Locality Works")
-            LazyColumn {
-                items(LocalityWorkList()){work->
-                    LocalityWorkCard(work)
+                items(complaints.reversed()) { complaint ->
+                    ComplaintCard(complaint = complaint)
                 }
             }
         }
     }
 }
-
-
-@Composable
-fun LocalityWorkCard(work: LocalityWork) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(100.dp)
-            .padding(10.dp)
-    ){
-        Row (
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ){
-            Text(text = work.locality)
-            Text(text = work.pincode)
-            Text(text = work.work)
-            Text(text = work.date)
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(imageVector = Icons.Default.Info, contentDescription = "")
-            }
-        }
-    }
-}
-
-fun LocalityWorkList(): List<LocalityWork> {
-    return listOf(
-        LocalityWork("Asansol","713303","Road","12-12-2023"),
-        LocalityWork("Burnpur","713305","Water","12-12-2023"),
-    )
-}
-
-data class LocalityWork(
-    val locality: String,
-    val pincode: String,
-    val work: String,
-    val date: String,
-)
-
 
 @Composable
 fun ComplaintCard(complaint: Complaint) {
-    val complaintList = complaintList()
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(100.dp)
-            .padding(10.dp)
-    ){
-        Row (
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ){
-            Text(text = complaint.locality)
-            Text(text = complaint.pincode)
-            Text(text = complaint.problem)
-            Text(text = complaint.name)
-            Text(text = complaint.document)
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(imageVector = Icons.Default.Share, contentDescription = "")
+            .padding(8.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = "Full Name: ${complaint.fullname}")
+            Text(text = "Phone: ${complaint.phone}")
+            Text(text = "Email: ${complaint.email}")
+            Text(text = "Pincode: ${complaint.pin}")
+            Text(text = "Problem: ${complaint.problem}")
+            if (complaint.attachment_id?.isNotEmpty() == true) {
+                Text(text = "Attachment ID: ${complaint.attachment_id}")
+            }
+
+            // Actions Row
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                IconButton(onClick = { /* Handle info click */ }) {
+                    Icon(Icons.Default.Info, contentDescription = "Info")
+                }
+                IconButton(onClick = { }) {
+                    Icon(Icons.Default.Send, contentDescription = "Send")
+                }
+                IconButton(onClick = { /* Handle share click */ }) {
+                    Icon(Icons.Default.Share, contentDescription = "Share")
+                }
             }
         }
     }
-}
-
-data class Complaint(
-    val name: String,
-    val phNo : String,
-    val problem: String,
-    val locality: String,
-    val pincode: String,
-    val document: String
-)
-
-fun complaintList(): List<Complaint> {
-    return listOf(
-        Complaint("Binod","123456789","Road","Asansol","713303","complaint1.pdf"),
-        Complaint("Sagar","123456789","Road","Asansol","713303","complaint2.pdf"),
-        )
 }

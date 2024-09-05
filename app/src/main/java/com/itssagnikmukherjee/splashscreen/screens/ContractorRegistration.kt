@@ -58,7 +58,7 @@ fun ContractorRegistration() {
     )
 
     FileUploadField(
-        label = "Upload Departmental Authorization Letter",
+        label = "Upload Contractor Licence",
         uri = authorizationLetterUri,
         onClick = { getFile.launch("application/pdf") }
     )

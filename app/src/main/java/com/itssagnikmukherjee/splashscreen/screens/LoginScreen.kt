@@ -50,7 +50,7 @@ fun LoginScreen(navController: NavController) {
                         // Navigate to the contractor screen
                     }
                     id == "345" && pass == "345" -> {
-                        // Navigate to the departmental head screen
+                        navController.navigate("officerscreen")
                     }
                     id == "456" && pass == "456" -> {
                         // Navigate to the tech expert screen
