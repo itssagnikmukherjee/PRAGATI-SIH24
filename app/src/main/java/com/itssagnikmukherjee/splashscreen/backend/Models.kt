@@ -58,5 +58,5 @@ data class Task(
     val start_date: String,
     val end_date: String,
     val head_ids: List<String>,
-    val resources: List<String>
+    val resources: List<String>,
 )
