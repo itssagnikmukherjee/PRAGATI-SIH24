@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.itssagnikmukherjee.splashscreen.screens.ComplaintSubmitted
 import com.itssagnikmukherjee.splashscreen.screens.ContractorRegistration
 import com.itssagnikmukherjee.splashscreen.screens.CouncillorRegistration
 import com.itssagnikmukherjee.splashscreen.screens.CouncillorScreen
@@ -42,11 +43,12 @@ class MainActivity : ComponentActivity() {
                         composable("loginreg"){ LogReg(navController) }
                         composable("registrationscreen"){ RegistrationScreen(navController) }
                         composable("loginscreen"){ LoginScreen(navController) }
-                        composable("individual"){ IndividualRegScreen() }
+                        composable("individual"){ IndividualRegScreen(navController = navController) }
                         composable("contractorreg"){ContractorRegistration()}
                         composable("councillorreg"){ CouncillorRegistration()}
                         composable("councillorscreen"){ CouncillorScreen() }
                         composable("officerscreen"){ DepartmentalHeadScreen() }
+                        composable("complaintsubmitted"){ ComplaintSubmitted() }
                     }
                 }
             }

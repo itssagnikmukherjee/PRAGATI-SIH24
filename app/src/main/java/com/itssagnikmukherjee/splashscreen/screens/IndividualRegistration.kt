@@ -11,6 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.itssagnikmukherjee.splashscreen.R
 import com.itssagnikmukherjee.splashscreen.backend.Complaint
 import com.itssagnikmukherjee.splashscreen.backend.ComplaintViewModel
@@ -19,7 +20,7 @@ import com.itssagnikmukherjee.splashscreen.ui.theme.myOrange
 import com.itssagnikmukherjee.splashscreen.ui.theme.outfit
 
 @Composable
-fun IndividualRegScreen(viewModel: ComplaintViewModel = viewModel()) {
+fun IndividualRegScreen(viewModel: ComplaintViewModel = viewModel(), navController: NavController) {
     // State variables for form fields
     var fullname by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -114,6 +115,7 @@ fun IndividualRegScreen(viewModel: ComplaintViewModel = viewModel()) {
                     problem = problem,
                     attachmentId = attachmentId
                )
+                navController.navigate("complaintSubmitted")
             },
             colors = ButtonDefaults.buttonColors(containerColor = myOrange),
             modifier = Modifier
@@ -128,6 +130,6 @@ fun IndividualRegScreen(viewModel: ComplaintViewModel = viewModel()) {
             CircularProgressIndicator()
         }
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = viewModel.submitMessage)
+        Text(text = viewModel.submitMessage, fontFamily = outfit, fontSize = 16.sp, color = myGrey)
     }
 }

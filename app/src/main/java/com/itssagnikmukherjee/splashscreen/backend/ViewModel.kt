@@ -79,7 +79,6 @@ class ComplaintViewModel : ViewModel() {
 
                 submitMessage = "Failed to submit complaint. Please try again."
             }
-
             isSubmitting = false
         }
     }
