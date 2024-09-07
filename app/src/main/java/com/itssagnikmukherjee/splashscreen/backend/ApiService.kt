@@ -30,6 +30,6 @@ interface ApiService {
     @GET("tasks")
     suspend fun getTasks(): Response<List<Task>>
 
-    @POST("tasks")
-    suspend fun createTask(@Body task: Task): Response<Task>
+//    @POST("tasks")
+//    suspend fun createTask(@Body task: Task): Response<Task>
 }

@@ -39,12 +39,13 @@ fun IndividualRegScreen(viewModel: ComplaintViewModel = viewModel(), navControll
     var locationError by remember { mutableStateOf("") }
     var pinError by remember { mutableStateOf("") }
     var problemError by remember { mutableStateOf("") }
-
+    
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Spacer(modifier = Modifier.height(50.dp))
         Column(
             modifier = Modifier.fillMaxWidth(0.8f)
         ) {

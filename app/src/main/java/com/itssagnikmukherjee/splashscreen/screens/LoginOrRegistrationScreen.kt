@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -46,62 +47,53 @@ import com.itssagnikmukherjee.splashscreen.ui.theme.myOrange
 import com.itssagnikmukherjee.splashscreen.ui.theme.outfit
 import kotlinx.coroutines.launch
 
-//@Composable
-//fun LoginOrReg(navController: NavController) {
-//    Scaffold {paddingValues ->
-//        Column(
-//            modifier = Modifier
-//                .padding(paddingValues)
-//                .fillMaxSize(),
-//            horizontalAlignment = Alignment.CenterHorizontally,
-//            verticalArrangement = Arrangement.Center
-//        ) {
-//            Button(onClick = { navController.navigate("loginscreen") }) {
-//                Text(text = "Login")
-//            }
-//            Button(onClick = { navController.navigate("individual") }) {
-//                Text(text = "Raise Complaint")
-//            }
-//            Button(onClick = { navController.navigate("contractorreg") }) {
-//                Text(text = "Contractor Registration")
-//            }
-//            Button(onClick = { navController.navigate("councillorreg") }) {
-//                Text(text = "Councillor Registration")
-//            }
-//            Button(onClick = { navController.navigate("registrationscreen") }) {
-//                Text(text = "Departmental Registration")
-//            }
-//        }
-//    }
-//}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LogReg(navController: NavController) {
-    // State for managing the visibility of the sheet
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    // State for managing the visibility of the login sheet
+    val loginSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val coroutineScope = rememberCoroutineScope()
+    // Track if the login sheet should be shown
+    var isLoginSheetVisible by remember { mutableStateOf(false) }
 
-    // Track if the sheet should be shown
-    var isSheetVisible by remember { mutableStateOf(false) }
+    // State for managing the visibility of the registration options sheet
+    val registrationOptionsSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    // Track if the registration options sheet should be shown
+    var isRegistrationOptionsSheetVisible by remember { mutableStateOf(false) }
 
-    // Function to show the bottom sheet
-    val showSheet = {
+    // Function to show the login sheet
+    val showLoginSheet = {
         coroutineScope.launch {
-            isSheetVisible = true
-            sheetState.show()
+            isLoginSheetVisible = true
+            loginSheetState.show()
         }
     }
 
-    // Function to hide the bottom sheet
-    val hideSheet = {
+    // Function to hide the login sheet
+    val hideLoginSheet = {
         coroutineScope.launch {
-            sheetState.hide()
-            isSheetVisible = false
+            loginSheetState.hide()
+            isLoginSheetVisible = false
         }
     }
 
-    // Main content with the buttons and sheet trigger
+    // Function to show the registration options sheet
+    val showRegistrationOptionsSheet = {
+        coroutineScope.launch {
+            isRegistrationOptionsSheetVisible = true
+            registrationOptionsSheetState.show()
+        }
+    }
+
+    // Function to hide the registration options sheet
+    val hideRegistrationOptionsSheet = {
+        coroutineScope.launch {
+            registrationOptionsSheetState.hide()
+            isRegistrationOptionsSheetVisible = false
+        }
+    }
+
+    // Main content with the buttons and sheet triggers
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -159,7 +151,7 @@ fun LogReg(navController: NavController) {
             )
         }
         Button(
-            onClick = { showSheet() },
+            onClick = { showLoginSheet() },
             colors = ButtonDefaults.buttonColors(containerColor = myGrey),
             modifier = Modifier
                 .fillMaxWidth(.9f)
@@ -175,7 +167,7 @@ fun LogReg(navController: NavController) {
         }
         Spacer(modifier = Modifier.height(10.dp))
         Button(
-            onClick = { /* Handle registration */ },
+            onClick = { showRegistrationOptionsSheet() },
             colors = ButtonDefaults.buttonColors(containerColor = myOrange),
             modifier = Modifier
                 .fillMaxWidth(.9f)
@@ -191,11 +183,11 @@ fun LogReg(navController: NavController) {
         }
     }
 
-    // Show the ModalBottomSheet only when isSheetVisible is true
-    if (isSheetVisible) {
+    // Show the ModalBottomSheet only when isLoginSheetVisible is true
+    if (isLoginSheetVisible) {
         ModalBottomSheet(
-            onDismissRequest = { hideSheet() },
-            sheetState = sheetState
+            onDismissRequest = { hideLoginSheet() },
+            sheetState = loginSheetState
         ) {
             Column(
                 modifier = Modifier
@@ -203,39 +195,156 @@ fun LogReg(navController: NavController) {
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    text = "Login",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = outfit,
-                    color = myGrey
-                )
+
+                var id by remember { mutableStateOf("") }
+                var pass by remember { mutableStateOf("") }
+
+                Column (modifier = Modifier
+                    .fillMaxWidth(.9f)
+                    .padding(bottom = 20.dp)){
+                    Text(
+                        text = "Pragati  Login",
+                        fontSize = 32.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = outfit,
+                        color = myGrey,
+                        textAlign = TextAlign.Start
+                    )
+                    Text(text = "Enter your Unique ID and Password below", fontFamily = outfit, color = myGrey, fontSize = 16.sp, modifier = Modifier.padding(0.dp, 10.dp))
+                }
                 Spacer(modifier = Modifier.height(16.dp))
                 TextField(
-                    value = "", // Replace with state variable
-                    onValueChange = { /* Update state */ },
+                    value = id,
+                    onValueChange = { id = it },
                     label = { Text("Unique ID") },
-                    modifier = Modifier.fillMaxWidth(),
-                    leadingIcon = { Icon(painter = painterResource(id = R.drawable.user), contentDescription = "") }
+                    modifier = Modifier.fillMaxWidth(0.9f),
+                    leadingIcon = { Icon(painter = painterResource(id = R.drawable.id), contentDescription = "", modifier = Modifier.size(20.dp)) }
                 )
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(15.dp))
                 TextField(
-                    value = "", // Replace with state variable
-                    onValueChange = { /* Update state */ },
+                    value = pass,
+                    onValueChange = { pass = it },
                     label = { Text("Password") },
-                    modifier = Modifier.fillMaxWidth(),
-                    leadingIcon = { Icon(painter = painterResource(id = R.drawable.desc), contentDescription = "") },
+                    modifier = Modifier.fillMaxWidth(.9f),
+                    leadingIcon = { Icon(painter = painterResource(id = R.drawable.lock), contentDescription = "", modifier = Modifier.size(20.dp)) },
                     visualTransformation = PasswordVisualTransformation()
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
-                    onClick = { /* Handle login */ hideSheet() },
-                    colors = ButtonDefaults.buttonColors(containerColor = myOrange),
-                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {
+                        hideLoginSheet()
+                        when {
+                            id == "123" && pass == "123" -> {
+                                navController.navigate("councillorscreen")
+                            }
+                            id == "234" && pass == "234" -> {
+                                // Navigate to the contractor screen
+                            }
+                            id == "345" && pass == "345" -> {
+                                navController.navigate("officerscreen")
+                            }
+                            id == "456" && pass == "456" -> {
+                                // Navigate to the tech expert screen
+                            }
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = myGrey),
+                    modifier = Modifier
+                        .fillMaxWidth(.9f)
+                        .height(60.dp),
                     shape = RoundedCornerShape(20.dp)
                 ) {
-                    Text(text = "LOGIN", color = Color.White, fontFamily = outfit, fontSize = 16.sp)
+                    Text(
+                        text = "LOGIN",
+                        color = Color.White,
+                        fontFamily = outfit,
+                        fontSize = 16.sp
+                    )
                 }
+            }
+        }
+    }
+
+    // Show the ModalBottomSheet only when isRegistrationOptionsSheetVisible is true
+    if (isRegistrationOptionsSheetVisible) {
+        ModalBottomSheet(
+            onDismissRequest = { hideRegistrationOptionsSheet() },
+            sheetState = registrationOptionsSheetState
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(.9f)
+                ){
+                Text(
+                    text = "Registration Options",
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = outfit,
+                    color = myGrey,
+                    modifier = Modifier.height(60.dp)
+                )
+                Text(text = "Choose your role and complete \n your registration effortlessly", fontFamily = outfit, color = myGrey, fontSize = 16.sp, modifier = Modifier.padding(bottom = 30.dp))
+                }
+                Button(
+                    onClick = { showRegistrationOptionsSheet()
+                        navController.navigate("councillorreg")
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = myOrange),
+                    modifier = Modifier
+                        .fillMaxWidth(.9f)
+                        .height(60.dp),
+                    shape = RoundedCornerShape(20.dp)
+                ) {
+                    Text(
+                        text = "Councillor Registration",
+                        color = Color.White,
+                        fontFamily = outfit,
+                        fontSize = 16.sp
+                    )
+                }
+                Spacer(modifier = Modifier.height(20.dp))
+                Button(
+                    onClick = {
+                        showRegistrationOptionsSheet()
+                        navController.navigate("contractorreg")
+                              },
+                    colors = ButtonDefaults.buttonColors(containerColor = myOrange),
+                    modifier = Modifier
+                        .fillMaxWidth(.9f)
+                        .height(60.dp),
+                    shape = RoundedCornerShape(20.dp)
+                ) {
+                    Text(
+                        text = "Contractor Registration",
+                        color = Color.White,
+                        fontFamily = outfit,
+                        fontSize = 16.sp
+                    )
+                }
+                Spacer(modifier = Modifier.height(20.dp))
+                Button(
+                    onClick = { showRegistrationOptionsSheet()
+                              navController.navigate("registrationscreen")
+                              },
+                    colors = ButtonDefaults.buttonColors(containerColor = myOrange),
+                    modifier = Modifier
+                        .fillMaxWidth(.9f)
+                        .height(60.dp),
+                    shape = RoundedCornerShape(20.dp)
+                ) {
+                    Text(
+                        text = "Departmental Registration",
+                        color = Color.White,
+                        fontFamily = outfit,
+                        fontSize = 16.sp
+                    )
+                }
+                Spacer(modifier = Modifier.height(20.dp))
             }
         }
     }

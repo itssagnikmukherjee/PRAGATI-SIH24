@@ -51,11 +51,12 @@ data class Departmental(
 
 // Task.kt
 data class Task(
+    val _id: String,
     val locality: String,
     val work_type: String,
-    val department_level: String, // Should be either "State" or "Local"
+    val department_level: String,
     val start_date: String,
     val end_date: String,
-    val head_ids: List<String>,   // List of IDs referencing Departmental model
+    val head_ids: List<String>,
     val resources: List<String>
 )

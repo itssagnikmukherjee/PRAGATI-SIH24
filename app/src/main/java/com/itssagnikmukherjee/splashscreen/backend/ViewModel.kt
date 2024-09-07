@@ -8,7 +8,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.itssagnikmukherjee.splashscreen.backend.ApiClient.apiService
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -16,12 +19,19 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
+//import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
+import org.json.JSONArray
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import sendComplaint
+import java.net.HttpURLConnection
+import java.net.URL
+import retrofit2.Response
+
 
 class ComplaintViewModel : ViewModel() {
     var isSubmitting by mutableStateOf(false)
@@ -33,7 +43,11 @@ class ComplaintViewModel : ViewModel() {
     val forwardedComplaints: StateFlow<List<Complaint>> = _complaints.map { it.filter { it.isForwarded } }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
 
+//FETCHING TASKS
 
+
+
+//
 
     fun fetchComplaints() {
         viewModelScope.launch {
@@ -49,6 +63,7 @@ class ComplaintViewModel : ViewModel() {
             }
         }
     }
+
 
 
     fun submitComplaint(
