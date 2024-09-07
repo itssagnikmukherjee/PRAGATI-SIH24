@@ -16,6 +16,7 @@ import com.itssagnikmukherjee.splashscreen.screens.ContractorRegistration
 import com.itssagnikmukherjee.splashscreen.screens.CouncillorRegistration
 import com.itssagnikmukherjee.splashscreen.screens.CouncillorScreen
 import com.itssagnikmukherjee.splashscreen.screens.DepartmentalHeadScreen
+import com.itssagnikmukherjee.splashscreen.screens.LogReg
 import com.itssagnikmukherjee.splashscreen.screens.LoginOrReg
 import com.itssagnikmukherjee.splashscreen.screens.LoginScreen
 import com.itssagnikmukherjee.splashscreen.screens.OnboardingScreen
@@ -37,7 +38,8 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController = navController, startDestination = "splash"){
                         composable("splash"){ SplashScreen(navController,context = this@MainActivity)}
                         composable("onboarding"){ OnboardingScreen(navController,context=this@MainActivity) }
-                        composable("loginreg"){ LoginOrReg(navController) }
+//                        composable("loginreg"){ LoginOrReg(navController) }
+                        composable("loginreg"){ LogReg(navController) }
                         composable("registrationscreen"){ RegistrationScreen(navController) }
                         composable("loginscreen"){ LoginScreen(navController) }
                         composable("individual"){ IndividualRegScreen() }

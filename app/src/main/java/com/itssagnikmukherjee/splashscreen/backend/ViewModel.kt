@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.itssagnikmukherjee.splashscreen.backend.ApiClient.apiService
@@ -25,7 +26,6 @@ import sendComplaint
 class ComplaintViewModel : ViewModel() {
     var isSubmitting by mutableStateOf(false)
     var submitMessage by mutableStateOf("")
-
 
     private val _complaints = MutableStateFlow<List<Complaint>>(emptyList())
     val complaints: StateFlow<List<Complaint>> = _complaints.asStateFlow()
@@ -50,6 +50,7 @@ class ComplaintViewModel : ViewModel() {
         }
     }
 
+
     fun submitComplaint(
         fullname: String,
         email: String,
@@ -71,13 +72,14 @@ class ComplaintViewModel : ViewModel() {
                 problem = problem,
                 attachmentId = attachmentId
             )
-
             // Update the UI based on response
             if (response?.isSuccessful == true) {
                 submitMessage = "Complaint successfully submitted!"
             } else {
+
                 submitMessage = "Failed to submit complaint. Please try again."
             }
+
             isSubmitting = false
         }
     }

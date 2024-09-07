@@ -1,26 +1,42 @@
 package com.itssagnikmukherjee.splashscreen.screens
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.Chip
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Send
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardElevation
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.InputChip
+import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,13 +47,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.itssagnikmukherjee.splashscreen.backend.Complaint
 import com.itssagnikmukherjee.splashscreen.backend.ComplaintViewModel
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CouncillorScreen(viewModel: ComplaintViewModel = viewModel()) {
     LaunchedEffect(Unit) {
@@ -55,11 +75,46 @@ fun CouncillorScreen(viewModel: ComplaintViewModel = viewModel()) {
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+            Text(text = "Mrs. Lila Roy", fontSize = 28.sp)
+            Text(text = "Councillor  |  Mohishila , Asansol")
+            Text(text = "Asansol Municipal Corporation, 713303")
             Text(
-                text = "Complaints",
+                text = "Local Works",
                 style = MaterialTheme.typography.h5,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
+
+            Row (
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp, 0.dp)
+                    .height(48.dp),
+                verticalAlignment = Alignment.CenterVertically,
+//                horizontalArrangement = Arrangement.SpaceBetween
+            ){
+                Text(
+                    text = "Complaints",
+                    style = MaterialTheme.typography.h5,
+                    modifier = Modifier.padding(end = 10.dp)
+                )
+                Box(modifier = Modifier.clip(RoundedCornerShape(20.dp))){
+                Text(text = "${complaints.size}", fontSize = 16.sp, modifier = Modifier
+                    .background(
+                        Color.Red
+                    )
+                    .padding(5.dp), color = Color.White)
+                }
+            }
+
+            Row {
+                Chip(onClick = { /*TODO*/ }, modifier = Modifier.padding(end = 8.dp)) {
+                    Text(text = "Pending")
+                }
+                Chip(onClick = { /*TODO*/ }) {
+                    Text(text = "Forwarded")
+                }
+            }
+
 
             LazyColumn {
                 items(complaints.reversed()) { complaint ->
@@ -69,6 +124,7 @@ fun CouncillorScreen(viewModel: ComplaintViewModel = viewModel()) {
         }
     }
 }
+
 
 @Composable
 fun ComplaintCard(complaint: Complaint) {
@@ -105,3 +161,4 @@ fun ComplaintCard(complaint: Complaint) {
         }
     }
 }
+

@@ -14,3 +14,6 @@ val myBGC = Color(0xFFF5D8C3)
 val txtColor = Color(0xFF5A6D75)
 val btnColor = Color(0xFFFF5900)
 val BGC2 = Color(0XFFD2F6F7)
+
+val myGrey = Color(0xFF516774)
+val myOrange = Color(0xFFFF5900)

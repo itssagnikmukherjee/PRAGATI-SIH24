@@ -19,6 +19,14 @@ val mukta = FontFamily(
     Font(R.font.muktabold, FontWeight.Bold)
 )
 
+val outfit = FontFamily(
+    Font(R.font.outfitregular, FontWeight.Normal),
+    Font(R.font.outfitmedium, FontWeight.Medium),
+    Font(R.font.outfitlight, FontWeight.Light),
+    Font(R.font.outfitbold, FontWeight.Bold),
+    Font(R.font.outfitsemibold, FontWeight.SemiBold)
+)
+
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
