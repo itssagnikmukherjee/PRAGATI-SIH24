@@ -55,6 +55,7 @@ class ComplaintViewModel : ViewModel() {
         fullname: String,
         email: String,
         phone: String,
+        location: String,
         pin: String,
         problem: String,
         attachmentId: String
@@ -68,6 +69,7 @@ class ComplaintViewModel : ViewModel() {
                 fullname = fullname,
                 email = email,
                 phone = phone,
+                location = location,
                 pin = pin,
                 problem = problem,
                 attachmentId = attachmentId

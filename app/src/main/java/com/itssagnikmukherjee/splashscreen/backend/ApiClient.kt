@@ -1,3 +1,4 @@
+import android.health.connect.datatypes.ExerciseRoute.Location
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -27,6 +28,7 @@ class MyActivity : AppCompatActivity() {
                 phone = "1234567890",
                 pin = "12345",
                 problem = "Test complaint",
+                location = "Test location",
                 attachmentId = "attachment123"
             )
         }
@@ -79,6 +81,7 @@ suspend fun sendComplaint(
     fullname: String,
     email: String,
     phone: String,
+    location: String,
     pin: String,
     problem: String,
     attachmentId: String
@@ -92,6 +95,7 @@ suspend fun sendComplaint(
                 "fullname": "$fullname",
                 "email": "$email",
                 "phone": "$phone",
+                "location": "$location",
                 "pin": "$pin",
                 "problem": "$problem",
                 "attachment_id": "$attachmentId"
