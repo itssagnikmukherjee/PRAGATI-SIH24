@@ -3,6 +3,7 @@ package com.itssagnikmukherjee.splashscreen.backend
 data class Complaint(
     val _id:String,
     val fullname: String,
+    val location: String,
     val email: String,
     val phone: String,
     val pin: String,
