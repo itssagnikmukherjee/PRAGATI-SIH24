@@ -37,6 +37,8 @@ import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
@@ -57,6 +59,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -72,6 +75,7 @@ import com.itssagnikmukherjee.splashscreen.backend.Complaint
 import com.itssagnikmukherjee.splashscreen.backend.ComplaintViewModel
 import com.itssagnikmukherjee.splashscreen.backend.Task
 import com.itssagnikmukherjee.splashscreen.backend.TaskViewModel
+import com.itssagnikmukherjee.splashscreen.ui.theme.myBGC
 import com.itssagnikmukherjee.splashscreen.ui.theme.myGrey
 import com.itssagnikmukherjee.splashscreen.ui.theme.myOrange
 import com.itssagnikmukherjee.splashscreen.ui.theme.outfit
@@ -229,7 +233,6 @@ fun LocalWorksBottomSheet(onDismiss: () -> Unit, viewModel: TaskViewModel) {
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.White)
-                .padding(16.dp)
         ) {
             Column(
                 modifier = Modifier
@@ -237,7 +240,9 @@ fun LocalWorksBottomSheet(onDismiss: () -> Unit, viewModel: TaskViewModel) {
                     .padding(16.dp)
             ) {
 
-                Row {
+                Row(
+                    modifier = Modifier.padding(start = 20.dp)
+                ){
                     Text(
                         text = "Local Works",
                         fontSize = 24.sp,
@@ -259,7 +264,11 @@ fun LocalWorksBottomSheet(onDismiss: () -> Unit, viewModel: TaskViewModel) {
                         ), textAlign = TextAlign.Center, lineHeight = 30.sp, color = Color.White)
                     }
                 }
+                Row(
+                    modifier = Modifier.padding(start = 20.dp)
+                ){
                 Text(text = "in Asansol, Paschim Bardhaman \nWest Bengal  |  713303", fontFamily = outfit, fontSize = 14.sp, color = myGrey)
+                }
 
                 // Make TaskScreen take as much space as needed
                 TaskScreen(viewModel())
@@ -310,35 +319,111 @@ fun ComplaintCard(complaint: Complaint) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(8.dp),
+        colors = CardDefaults.cardColors(myBGC)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Row {
-                Icon(painterResource(id = R.drawable.id), contentDescription = "", modifier = Modifier.size(20.dp))
-            Text(text = "${complaint.problem}")
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Icon(painterResource(id = R.drawable.problem), contentDescription = "", modifier = Modifier.size(20.dp), tint = Color.Black.copy(0.7f))
+            Text(text = "${complaint.problem}", modifier = Modifier.padding(start = 10.dp), fontSize = 24.sp, fontFamily = outfit, color = Color.Black.copy(0.7f))
             }
-            Text(text = "Location: ${complaint.location}")
-            Text(text = "Pincode: ${complaint.pin}")
-            Text(text = "Full Name: ${complaint.fullname}")
-            Text(text = "Phone: ${complaint.phone}")
-            Text(text = "Email: ${complaint.email}")
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Icon(painterResource(id = R.drawable.location), contentDescription = "", modifier = Modifier.size(20.dp), tint = Color.Black.copy(0.7f))
+                Text(text = "${complaint.location}", modifier = Modifier.padding(start = 10.dp), fontSize = 18.sp, fontFamily = outfit, color = Color.Black.copy(0.7f))
+            }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Icon(painterResource(id = R.drawable.pin), contentDescription = "", modifier = Modifier.size(20.dp), tint = Color.Black.copy(0.7f))
+                Text(text = "${complaint.pin}", modifier = Modifier.padding(start = 10.dp), fontSize = 18.sp, fontWeight = FontWeight.SemiBold, fontFamily = outfit, color = Color.Black.copy(0.7f))
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+            ){
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painterResource(id = R.drawable.user),
+                        contentDescription = "",
+                        modifier = Modifier.size(20.dp),
+                        tint = Color.Black.copy(0.7f)
+                    )
+                    Text(
+                        text = "${complaint.fullname}",
+                        modifier = Modifier.padding(start = 10.dp),
+                        fontSize = 15.sp,
+                        fontFamily = outfit,
+                        color = Color.Black.copy(0.7f)
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painterResource(id = R.drawable.phone),
+                        contentDescription = "",
+                        modifier = Modifier.size(20.dp),
+                        tint = Color.Black.copy(0.7f)
+                    )
+                    Text(
+                        text = "${complaint.phone}",
+                        modifier = Modifier.padding(start = 10.dp),
+                        fontSize = 15.sp,
+                        fontFamily = outfit,
+                        color = Color.Black.copy(0.7f)
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painterResource(id = R.drawable.email),
+                        contentDescription = "",
+                        modifier = Modifier.size(20.dp),
+                        tint = Color.Black.copy(0.7f)
+                    )
+                    Text(
+                        text = "${complaint.email}",
+                        modifier = Modifier.padding(start = 10.dp),
+                        fontSize = 15.sp,
+                        fontFamily = outfit,
+                        color = Color.Black.copy(0.7f)
+                    )
+                }
+            }
             if (complaint.attachment_id?.isNotEmpty() == true) {
                 Text(text = "Attachment ID: ${complaint.attachment_id}")
             }
 
             // Actions Row
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 IconButton(onClick = { /* Handle info click */ }) {
-                    Icon(Icons.Default.Info, contentDescription = "Info")
+                    Icon(Icons.Default.Info, contentDescription = "Info", tint = Color.Black.copy(0.7f))
                 }
                 IconButton(onClick = { }) {
-                    Icon(Icons.Default.Send, contentDescription = "Send")
+                    Icon(Icons.Default.Send, contentDescription = "Send", tint = Color.Black.copy(0.7f))
                 }
                 IconButton(onClick = { /* Handle share click */ }) {
-                    Icon(Icons.Default.Share, contentDescription = "Share")
+                    Icon(Icons.Default.Share, contentDescription = "Share", tint = Color.Black.copy(0.7f))
                 }
             }
         }
@@ -367,17 +452,71 @@ fun TaskItem(task: Task) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 20.dp)
+            .padding(top = 10.dp)
     ){
-        Column(modifier = Modifier.padding(vertical = 8.dp)) {
-            Text(text = "ID: ${task._id}")
-            Text(text = "Locality: ${task.locality}")
-            Text(text = "Work Type: ${task.work_type}")
-            Text(text = "Department Level: ${task.department_level}")
-            Text(text = "Start Date: ${task.start_date}")
-            Text(text = "End Date: ${task.end_date}")
-            Text(text = "Head IDs: ${task.head_ids.joinToString()}")
-            Text(text = "Resources: ${task.resources.joinToString()}")
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp)
+        ){
+            Column(modifier = Modifier.padding(vertical = 8.dp)) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.height(40.dp)
+                ){
+                    Icon(painterResource(id = R.drawable.building), contentDescription = "", modifier = Modifier.size(20.dp) )
+                Text(text = "${task.work_type}", fontSize = 22.sp, fontFamily = outfit)
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.height(40.dp)
+                ){
+                    Icon(painterResource(id = R.drawable.location), contentDescription = "", modifier = Modifier.size(20.dp) )
+                Text(text = "${task.locality}")
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.height(40.dp)
+                ){
+                    Icon(painterResource(id = R.drawable.department), contentDescription = "", modifier = Modifier.size(20.dp) )
+                Text(text = "${task.department_level}", fontSize = 14.sp, fontFamily = outfit)
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.height(40.dp)
+                ) {
+                    Icon(painterResource(id = R.drawable.calender), contentDescription = "", modifier = Modifier.size(20.dp) )
+                Text(text = "${task.start_date}")
+                }
+                Row (
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.height(40.dp)
+                ){
+                    Icon(painterResource(id = R.drawable.calender), contentDescription = "", modifier = Modifier.size(20.dp) )
+                    Text(text = "${task.end_date}", fontSize = 14.sp, fontFamily = outfit)
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.height(40.dp)
+                ){
+                    Icon(painterResource(id = R.drawable.id), contentDescription = "", modifier = Modifier.size(20.dp) )
+                Text(text = "Head IDs: ${task.head_ids.joinToString()}", fontSize = 14.sp, fontFamily = outfit)
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.height(40.dp)
+                ){
+                    Icon(painterResource(id = R.drawable.tools), contentDescription = "", modifier = Modifier.size(20.dp) )
+                Text(text = "Resources: ${task.resources.joinToString()}", fontSize = 14.sp, fontFamily = outfit)
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.height(40.dp)
+                ){
+                    Icon(painterResource(id = R.drawable.id), contentDescription = "", modifier = Modifier.size(20.dp) )
+                Text(text = "Task ID: ${task._id}", fontSize = 14.sp, fontFamily = outfit)
+                }
+            }
         }
     }
 }
