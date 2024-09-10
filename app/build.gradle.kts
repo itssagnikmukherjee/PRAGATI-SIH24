@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.itssagnikmukherjee.splashscreen"
+    namespace = "com.itssagnikmukherjee.pragati"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.itssagnikmukherjee.splashscreen"
+        applicationId = "com.itssagnikmukherjee.pragati"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
