@@ -13,7 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import com.itssagnikmukherjee.splashscreen.R
+import com.itssagnikmukherjee.pragati.R
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,

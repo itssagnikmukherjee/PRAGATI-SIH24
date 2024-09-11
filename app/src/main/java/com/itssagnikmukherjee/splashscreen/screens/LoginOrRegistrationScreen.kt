@@ -39,7 +39,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.itssagnikmukherjee.splashscreen.R
+import com.itssagnikmukherjee.pragati.R
+
 import com.itssagnikmukherjee.splashscreen.ui.theme.mukta
 import com.itssagnikmukherjee.splashscreen.ui.theme.myBGC
 import com.itssagnikmukherjee.splashscreen.ui.theme.myGrey

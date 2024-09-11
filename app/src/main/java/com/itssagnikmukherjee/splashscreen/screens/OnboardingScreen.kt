@@ -40,7 +40,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
 import com.itssagnikmukherjee.splashscreen.MainActivity
-import com.itssagnikmukherjee.splashscreen.R
+import com.itssagnikmukherjee.pragati.R
 import com.itssagnikmukherjee.splashscreen.ui.theme.btnColor
 import com.itssagnikmukherjee.splashscreen.ui.theme.mukta
 import com.itssagnikmukherjee.splashscreen.ui.theme.myBGC

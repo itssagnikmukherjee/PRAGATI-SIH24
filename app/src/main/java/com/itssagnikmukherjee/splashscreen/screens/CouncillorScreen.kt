@@ -70,7 +70,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.itssagnikmukherjee.splashscreen.R
+import com.itssagnikmukherjee.pragati.R
 import com.itssagnikmukherjee.splashscreen.backend.Complaint
 import com.itssagnikmukherjee.splashscreen.backend.ComplaintViewModel
 import com.itssagnikmukherjee.splashscreen.backend.Task

@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.itssagnikmukherjee.splashscreen.R
+import com.itssagnikmukherjee.pragati.R
 import com.itssagnikmukherjee.splashscreen.backend.Complaint
 import com.itssagnikmukherjee.splashscreen.backend.ComplaintViewModel
 import com.itssagnikmukherjee.splashscreen.ui.theme.myGrey
